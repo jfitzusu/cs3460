@@ -42,7 +42,10 @@ void checkBins(const Bins& expected, const Bins& actual)
 
 void checkTotal(const std::uint32_t expected, const Bins& bins)
 {
-    const auto add_counts = [](const std::uint32_t total, const DistributionPair& bin) { return total + bin.count; };
+    const auto add_counts = [](const std::uint32_t total, const DistributionPair& bin)
+    {
+        return total + bin.count;
+    };
     const auto actual = std::accumulate(bins.cbegin(), bins.cend(), 0u, add_counts);
     EXPECT_EQ(expected, actual) << "Wrong number of elements across all bins";
 }

@@ -10,7 +10,7 @@ set(UNIT_TEST_RUNNER UnitTestRunner)
 # Files
 set(HEADER_FILES distributions.hpp)
 set(SOURCE_FILES distributions.cpp)
-set(UNIT_TEST_FILES TestUtilities.cpp)
+set(UNIT_TEST_FILES TestDistributions.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES} main.cpp)
 add_executable(${UNIT_TEST_RUNNER} ${SOURCE_FILES} ${HEADER_FILES} ${UNIT_TEST_FILES})
@@ -52,7 +52,7 @@ else()
 endif()
 
 
-# Include Google Test
+# Include Google Test Library
 include(FetchContent)
 FetchContent_Declare(
 	googletest
@@ -63,4 +63,15 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-target_link_libraries(${UNIT_TEST_RUNNER} gtest_main)
+
+
+# Include fmt Library
+include(FetchContent)
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY    https://github.com/fmtlib/fmt.git
+    GIT_TAG           9.1.0
+)
+FetchContent_MakeAvailable(fmt)
+target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
+target_link_libraries(${UNIT_TEST_RUNNER} gtest_main fmt::fmt)

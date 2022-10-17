@@ -1,8 +1,10 @@
+#include "distributions.hpp"
+
+#include <fmt/format.h>
 #include <iomanip>
 #include <iostream>
 #include <random>
 #include <vector>
-
 
 std::vector<DistributionPair> generateUniformDistribution(std::uint32_t howMany, std::uint32_t min, std::uint32_t max, std::uint8_t numberBins)
 {
@@ -119,7 +121,7 @@ std::vector<DistributionPair> generateNormalDistribution(std::uint32_t howMany, 
 void plotDistribution(std::string title, const std::vector<DistributionPair>& distribution, const std::uint8_t maxPlotLineSize)
 {
     std::uint32_t maxBinSize(0);
-    for (int i = 0; i < distribution.size(); i++)
+    for (std::uint32_t i = 0; i < distribution.size(); i++)
     {
         if (distribution[i].count > maxBinSize)
         {
@@ -129,18 +131,20 @@ void plotDistribution(std::string title, const std::vector<DistributionPair>& di
 
     float scaleFactor = maxPlotLineSize / static_cast<float>(maxBinSize);
 
+    // There are a Lot of Ways I Can Think of To Get This Programatically But Anything Easy Requires Libraries We Haven't Covered
+    std::uint8_t largestLength = 3;
+
     std::cout << title << std::endl;
-    int maxIntSize = 3;
 
     for (DistributionPair bin : distribution)
     {
-        std::cout << "[" << std::setfill(' ') << std::setw(maxIntSize) << std::right << bin.minValue;
-        std::cout << "," << std::setw(maxIntSize) << std::right << bin.maxValue << "]"
-                  << " :";
+        std::cout << fmt::format("[{:>{}}, {:>{}}] :", bin.minValue, largestLength, bin.maxValue, largestLength);
+
         if (bin.count > 0)
         {
-            std::cout << std::setfill('*') << std::setw(static_cast<int>(bin.count * scaleFactor) + 1) << std::left << " ";
+            std::cout << fmt::format("{:*<{}}", " ", static_cast<int>(bin.count * scaleFactor) + 1);
         }
+
         std::cout << std::endl;
     }
 
