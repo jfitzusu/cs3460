@@ -1,5 +1,7 @@
 #pragma once
 #include <array>
+#include <cstdint>
+#include <stdint.h>
 
 const std::size_t HOW_MANY_ELEMENTS = 250000;
 const std::uint8_t HOW_MANY_TIMES = 25;

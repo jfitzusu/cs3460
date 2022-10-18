@@ -18,7 +18,7 @@ void organPipeStdArray(SourceArray& data)
 {
     std::int32_t start = 0;
     std::int32_t end = static_cast<std::int32_t>(data.size()) - 1;
-    for (start; start < static_cast<std::int32_t>(data.size() / 2); start++, end--)
+    for (; start < static_cast<std::int32_t>(data.size() / 2); start++, end--)
     {
         data[end] = data[start];
     }
