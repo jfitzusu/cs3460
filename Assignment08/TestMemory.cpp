@@ -134,7 +134,7 @@ TEST(Array, CanCreateArray)
     primes[2] = truth[2];
     primes[3] = truth[3];
 
-    for (unsigned int i = 0; i < primes.size(); i++)
+    for (int i = 0; i < primes.size(); i++)
     {
         EXPECT_EQ(primes[i], truth[i]);
     }

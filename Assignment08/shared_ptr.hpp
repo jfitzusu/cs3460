@@ -50,7 +50,15 @@ namespace usu
 
         shared_ptr& operator=(const shared_ptr& shared)
         {
-            *m_count -= 1;
+            if (*m_count > 1)
+            {
+                *m_count -= 1;
+            }
+            else
+            {
+                delete m_pointer;
+                delete m_count;
+            }
             m_pointer = shared.m_pointer;
             m_count = shared.m_count;
             *m_count += 1;
@@ -152,7 +160,16 @@ namespace usu
 
         shared_ptr& operator=(const shared_ptr& shared)
         {
-            *m_count -= 1;
+            if (*m_count > 1)
+            {
+                *m_count -= 1;
+            }
+            else
+            {
+                delete[] m_pointer;
+                delete m_size;
+                delete m_count;
+            }
             m_pointer = shared.m_pointer;
             m_count = shared.m_count;
             m_size = shared.m_size;
