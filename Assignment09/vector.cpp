@@ -2,9 +2,9 @@
 
 usu::vector<bool>::reference::reference(std::uint8_t* byte, std::uint8_t bit)
 {
-    if (bit > 7 || bit < 0)
+    if (bit > 7)
     {
-        throw new std::exception("Bit Not Within Byte");
+        throw std::range_error("Bit Not Within Byte");
     }
     m_location = byte;
     m_bit = bit;
@@ -41,8 +41,8 @@ usu::vector<bool>::iterator::iterator(pointer pointer) :
     iterator(0, pointer){};
 
 usu::vector<bool>::iterator::iterator(size_type position, pointer pointer) :
-    m_pointer(pointer),
-    m_position(position){};
+    m_position(position),
+    m_pointer(pointer){};
 
 usu::vector<bool>::iterator::iterator(const iterator& oldIter)
 {
@@ -165,7 +165,7 @@ usu::vector<bool>::vector(std::initializer_list<bool> list, resize_type resize) 
 
 usu::vector<bool>::reference usu::vector<bool>::operator[](size_type index)
 {
-    if (index >= m_size || index < 0)
+    if (index >= m_size)
     {
         throw std::range_error("Index Out of Bounds");
     }
@@ -191,7 +191,7 @@ void usu::vector<bool>::add(bool value)
 
 void usu::vector<bool>::insert(size_type index, bool value)
 {
-    if (index > m_size || index < 0)
+    if (index > m_size)
     {
         throw std::range_error("Index Out of Bounds");
     }
@@ -222,7 +222,7 @@ void usu::vector<bool>::insert(size_type index, bool value)
 void usu::vector<bool>::remove(size_type index)
 {
     {
-        if (index >= m_size || index < 0)
+        if (index >= m_size)
         {
             throw std::range_error("Index Out of Bounds");
         }

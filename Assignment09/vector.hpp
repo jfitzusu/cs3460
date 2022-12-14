@@ -119,15 +119,15 @@ namespace usu
             bool operator!=(const iterator& iter);
 
           private:
-            size_type m_position;
-            pointer m_pointer;
+            size_type m_position = 0;
+            pointer m_pointer = nullptr;
         };
 
-        vector<bool>();
-        vector<bool>(size_type size);
-        vector<bool>(resize_type resize);
-        vector<bool>(size_type size, resize_type resize);
-        vector<bool>(std::initializer_list<bool> list);
+        vector();
+        vector(size_type size);
+        vector(resize_type resize);
+        vector(size_type size, resize_type resize);
+        vector(std::initializer_list<bool> list);
         vector(std::initializer_list<bool> list, resize_type resize);
 
         reference operator[](size_type index);
@@ -162,8 +162,8 @@ namespace usu
 
     template <typename T>
     vector<T>::iterator::iterator(size_type position, pointer pointer) :
-        m_pointer(pointer),
-        m_position(position){};
+        m_position(position),
+        m_pointer(pointer){};
 
     template <typename T>
     vector<T>::iterator::iterator(const iterator& oldIter)
@@ -296,7 +296,7 @@ namespace usu
     template <typename T>
     vector<T>::reference vector<T>::operator[](size_type index)
     {
-        if (index >= m_size || index < 0)
+        if (index >= m_size)
 
         {
             throw std::range_error("Index Out of Bounds");
@@ -325,7 +325,7 @@ namespace usu
     template <typename T>
     void vector<T>::insert(size_type index, T value)
     {
-        if (index > m_size || index < 0)
+        if (index > m_size)
         {
             throw std::range_error("Index Out of Bounds");
         }
@@ -356,7 +356,7 @@ namespace usu
     template <typename T>
     void vector<T>::remove(size_type index)
     {
-        if (index >= m_size || index < 0)
+        if (index >= m_size)
         {
             throw std::range_error("Index Out of Bounds");
         }
